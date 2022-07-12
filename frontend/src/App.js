@@ -27,6 +27,10 @@ function App() {
   }).catch(error => {
     console.log(`error from server ${error}`)
   })
+
+  /* clear field after submit */
+  setName('');
+  setEmail('');
   }
 
 
