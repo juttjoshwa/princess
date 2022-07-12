@@ -18,9 +18,21 @@ app.get('/users', async (req,res)=>{
     console.log(users)
     res.status(200).json(users)
 })
+const addUser = async (req,res) => {
+    const {name,Email} = req.body;
+    const user = new User({name,Email});
+    try {
+        await user.save()
+        console.log(user)
+    } catch (Error) {
+        console.log(Error)
+    }
+}
+app.post('/users',addUser)
 
 
-app.listen (PORT, () =>console.log("server is working on port 5000"))
+
+app.listen (PORT, () =>console.log(`server is working on port ${PORT}`))
 
 const DB_url = process.env.MONGO_URL;
  
@@ -29,15 +41,7 @@ mongoose
 .then(()=> console.log('DB working'))
 .catch((Error)=>console.log(Error))
 
-const addUser = async () => {
-    const user = new User({ name: 'joshwa', Email: 'juttjoshwa@gmail.com' })
-    try {
-        await user.save()
-        console.log(user)
-    } catch (Error) {
-        console.log(Error)
-    }
-}
 
-console.log(PORT)
+
+
 

@@ -1,28 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
   const [name,setName]= useState('')
   const [email,setEmail]= useState('')
   const [users,setUsers]= useState ([])
 
-  const handleSubmit = e => {
-   e.preventdefault()
-   console.log(name , email)
+  useEffect(() => {
+    axios.get("http://localhost:4050/users").then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.log(error);
+    })
+  },[])
+  const handleSubmit = (e) => {
+   e.preventDefault()
+   console.log("inside handle submit")
+   axios.post(`http://localhost:4050/users`,{
+     name: name,
+     Email : email
+  }).then(response => {
+    console.log(`response from server ${response}`)
+  }).catch(error => {
+    console.log(`error from server ${error}`)
+  })
   }
-  fetch('http://localhost:5000/users').then(r => r.json()).then(users => setUsers(users))
+
+
+
+  
 
   return (
     <div>
-      <form method="post" onSubmit={handleSubmit}>
+      <form action="/" method="post" >
         <label>Name</label>
         <input type= 'text' value={name} onChange={e => setName(e.target.value)} />
         <br/>
         <label>Email</label>
         <input type='text'  value={email} onChange={e => setEmail(e.target.value)}/>
-        <button type="Submit">Submit</button>
+        <button type="Submit" onClick={(e) => handleSubmit(e)}>Submit</button>
 
         <div >
-          {users.map(u=><div key={u._id}><p>{u.name}</p></div>)}
+          {users.map(user=>
+            <div key={user._id}>
+            <p>{user.name}</p>
+          </div>)}
         </div>
 
       </form>
