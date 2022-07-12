@@ -16,10 +16,12 @@ app.get('/users', async (req,res)=>{
     console.log(users)
     res.status(200).json(users)
 })
+
+
 app.listen (PORT, () =>console.log("server is working on port 5000"))
 
 const DB_url =
- 'mongodb+srv://AIS:AIS@cluster0.crepsko.mongodb.net/SHERRI?retryWrites=true&w=majority'
+ 'mongodb+srv://admin:admin123@cluster0.e7tjf.mongodb.net/users?retryWrites=true&w=majority'
 mongoose
 .connect(DB_url,{useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> console.log('DB working'))
@@ -34,5 +36,5 @@ const addUser = async () => {
         console.log(Error)
     }
 }
-addUser()
+
 
