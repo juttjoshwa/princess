@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors"
 import mongoose from "mongoose";
 import User  from "./User.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express()
 app.use(express.json())
@@ -20,8 +22,8 @@ app.get('/users', async (req,res)=>{
 
 app.listen (PORT, () =>console.log("server is working on port 5000"))
 
-const DB_url =
- 'mongodb+srv://admin:admin123@cluster0.e7tjf.mongodb.net/users?retryWrites=true&w=majority'
+const DB_url = process.env.MONGO_URL;
+ 
 mongoose
 .connect(DB_url,{useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> console.log('DB working'))
