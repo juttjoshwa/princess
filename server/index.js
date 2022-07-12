@@ -22,8 +22,19 @@ const addUser = async (req,res) => {
     const {name,Email} = req.body;
     const user = new User({name,Email});
     try {
-        await user.save()
-        console.log(user)
+        await user.save((err,user) => {
+            if (err) {
+                res.status(400).json({message: "error"})
+            } else {
+                console.log("success from post")
+                res.status(200).json(
+                    {
+                        message: "success",
+                        data: user
+                    }
+                )
+            }
+        })
     } catch (Error) {
         console.log(Error)
     }

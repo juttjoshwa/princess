@@ -9,18 +9,21 @@ function App() {
   useEffect(() => {
     axios.get("http://localhost:4050/users").then(response => {
       console.log(response.data);
+      setUsers(response.data);
     }).catch(error => {
       console.log(error);
     })
   },[])
+
   const handleSubmit = (e) => {
    e.preventDefault()
    console.log("inside handle submit")
    axios.post(`http://localhost:4050/users`,{
      name: name,
      Email : email
-  }).then(response => {
-    console.log(`response from server ${response}`)
+  }).then((response) => {
+    console.log(response.data.data.name);
+    setUsers([...users,response.data.data])
   }).catch(error => {
     console.log(`error from server ${error}`)
   })
