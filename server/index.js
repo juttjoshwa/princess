@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const PORT = 5000
+const PORT = process.env.PORT || 8000
 
 app.get('/',(req,res) => res.send('hello from server'))
 
@@ -39,4 +39,5 @@ const addUser = async () => {
     }
 }
 
+console.log(PORT)
 
