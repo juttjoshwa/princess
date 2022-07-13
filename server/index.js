@@ -16,7 +16,6 @@ app.get('/',(req,res) => res.send('hello from server'))
 
 app.get('/users', async (req,res)=>{
     const users = await User.find({})
-    console.log(users)
     res.status(200).json(users)
 })
 const addUser = async (req,res) => {
